@@ -9,6 +9,7 @@ public class CrudApp {
     public static final String USERNAME = "app";
     public static final String PASSWORD = "app";
     public static final String GREEN = "\u001B[32m";
+    public static final String YELLOW = "\u001B[33m";
     public static final String RESET = "\u001B[0m";
     public static int oper = 4;
     static Employee emp = new Employee();
@@ -78,10 +79,12 @@ public class CrudApp {
 
         try (Statement stmt = conn.createStatement()) {
             stmt.executeUpdate(sql);
-            System.out.println("Table Employees created");
+            System.out.printf(YELLOW + "DB State: "+ RESET +"Database CrudApp created. %n");
+            System.out.printf(YELLOW + "DB State: "+ RESET +"Table Employees created. %n");
         } catch (SQLException e) {
             if ("X0Y32".equals(e.getSQLState())) { // In this line we are trying to check here if the table "employees" already exist
-                System.out.println("Employees table already exists.");
+                System.out.printf(YELLOW + "DB State: "+ RESET +"Database CrudApp already exists. %n");
+                System.out.printf(YELLOW + "DB State: "+ RESET +"Employees table already exists. %n");
             } else {
                 e.printStackTrace();
             }
@@ -103,7 +106,7 @@ public class CrudApp {
             // Create a connection to the database with the URL and with the username and password "app"
             try {
                 Connection con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-                System.out.printf(GREEN + "Connected: " + RESET + URL);
+                System.out.printf(GREEN + "Connected: " + RESET + URL + "%n");
                 // insert method for table creation
                 createTableIfNotExist(con);
 
